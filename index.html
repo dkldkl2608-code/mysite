@@ -1,11 +1,653 @@
 <!doctype html>
 <html lang="ru">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Привет, мир!</title>
-  </head>
-  <body>
-    <h1>Привет, мир!</h1>
-  </body>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Буся</title>
+<meta name="description" content="Личная страница серого кота Буси — главного специалиста по сну, охоте на точку и инспекции коробок.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Changa+One:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --color-butter-sky:#ffe8b8;
+    --color-sun-disc:#ffb627;
+    --color-yarn-coral:#f0533d;
+    --color-whisker-ink:#2e2a26;
+    --color-cloud-white:#fffdf8;
+    --color-busya-grey:#9a9c9f;
+    --color-busya-grey-dark:#74767a;
+    --color-leaf:#7c9473;
+
+    --font-display:'Changa One', ui-sans-serif, system-ui, sans-serif;
+    --font-arial: Arial, Helvetica, ui-sans-serif, system-ui, sans-serif;
+
+    --text-caption:12px;
+    --text-body:16px;
+    --text-subheading:20px;
+    --text-heading-sm:32px;
+    --text-heading:50px;
+    --text-display:75px;
+
+    --spacing-10:10px;
+    --spacing-20:20px;
+    --spacing-45:45px;
+
+    --radius-full:1440px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    color:var(--color-whisker-ink);
+    font-family:var(--font-arial);
+    background:var(--color-butter-sky);
+    overflow-x:hidden;
+  }
+  h1,h2,h3,p,figure{margin:0;}
+  a{color:inherit;text-decoration:none;}
+  section{
+    position:relative;
+    background:var(--color-butter-sky);
+    overflow:hidden;
+  }
+  img,svg{display:block;max-width:100%;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+
+  /* ---------- NAV ---------- */
+  .nav{
+    position:sticky;
+    top:0;
+    z-index:50;
+    display:flex;
+    justify-content:center;
+    padding-top:var(--spacing-10);
+  }
+  .nav ul{
+    list-style:none;
+    display:flex;
+    margin:0;
+    padding:0;
+  }
+  .nav a{
+    position:relative;
+    display:inline-block;
+    font-family:var(--font-arial);
+    font-size:var(--text-caption);
+    font-weight:400;
+    letter-spacing:0.02em;
+    text-transform:uppercase;
+    color:var(--color-whisker-ink);
+    padding:10px 20px;
+  }
+  .nav a::after{
+    content:'';
+    position:absolute;
+    left:50%;
+    bottom:6px;
+    transform:translateX(-50%);
+    width:0;
+    height:3px;
+    background:var(--color-whisker-ink);
+    transition:width 0.2s ease;
+  }
+  .nav a.active::after,
+  .nav a:hover::after{
+    width:20px;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+    padding-bottom:0;
+  }
+  .hero-stage{
+    position:relative;
+    width:100%;
+    height:min(78vh, 780px);
+    display:flex;
+    justify-content:center;
+  }
+  .sun-disc{
+    position:absolute;
+    bottom:-22%;
+    width:min(88vw, 640px);
+    height:min(88vw, 640px);
+    border-radius:var(--radius-full);
+    background:var(--color-sun-disc);
+  }
+  .hero-arc-text{
+    position:absolute;
+    top:2%;
+    left:50%;
+    transform:translateX(-50%);
+    width:min(92vw, 680px);
+    height:min(92vw, 680px);
+    pointer-events:none;
+  }
+  .hero-arc-text text{
+    font-family:var(--font-display);
+    fill:var(--color-cloud-white);
+  }
+  .hero-eyebrow{
+    position:absolute;
+    top:14%;
+    left:50%;
+    transform:translateX(-50%);
+    width:min(92vw, 680px);
+    height:min(92vw, 680px);
+    pointer-events:none;
+  }
+  .hero-eyebrow text{
+    font-family:var(--font-arial);
+    font-size:13px;
+    letter-spacing:0.12em;
+    fill:var(--color-whisker-ink);
+  }
+  .cat-curled{
+    position:absolute;
+    bottom:2%;
+    width:min(60vw, 420px);
+  }
+  .tail-wag{
+    transform-origin:78% 62%;
+    animation:wag 4.5s ease-in-out infinite;
+  }
+  @keyframes wag{
+    0%,100%{transform:rotate(0deg);}
+    50%{transform:rotate(-4deg);}
+  }
+  .hero-caption{
+    position:relative;
+    z-index:1;
+    text-align:center;
+    font-family:var(--font-display);
+    font-weight:400;
+    font-size:var(--text-subheading);
+    line-height:1.25;
+    padding:var(--spacing-20) var(--spacing-20) var(--spacing-45);
+  }
+  .prop{
+    position:absolute;
+  }
+  .prop-plant{bottom:4%; left:4%; width:min(16vw,120px);}
+  .prop-yarn{bottom:6%; right:6%; width:min(11vw,84px);}
+  .prop-window{top:8%; left:6%; width:min(10vw,72px); opacity:0.9;}
+  .prop-window.two{top:22%; right:8%; left:auto;}
+
+  /* ---------- ABOUT ---------- */
+  .about{
+    min-height:100vh;
+    padding:var(--spacing-45) var(--spacing-20);
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    gap:var(--spacing-45);
+  }
+  .about-intro{
+    align-self:flex-end;
+    max-width:640px;
+    text-align:right;
+    transform:rotate(-3deg);
+  }
+  .about-intro h2{
+    font-family:var(--font-display);
+    font-weight:400;
+    font-size:clamp(32px, 6vw, var(--text-heading));
+    line-height:0.8;
+    color:var(--color-whisker-ink);
+  }
+  .about-body{
+    display:flex;
+    flex-wrap:wrap;
+    gap:var(--spacing-45);
+    align-items:flex-start;
+    justify-content:space-between;
+  }
+  .about-story{
+    max-width:460px;
+    font-size:var(--text-body);
+    line-height:1.6;
+  }
+  .about-story p + p{margin-top:var(--spacing-10);}
+  .fact-chips{
+    display:flex;
+    flex-wrap:wrap;
+    gap:var(--spacing-10);
+    max-width:420px;
+  }
+  .fact-chip{
+    border:2px solid var(--color-whisker-ink);
+    padding:10px 20px;
+    font-size:var(--text-caption);
+    letter-spacing:0.03em;
+    text-transform:uppercase;
+    line-height:1.6;
+  }
+  .fact-chip b{
+    display:block;
+    font-family:var(--font-arial);
+    font-size:14px;
+    letter-spacing:normal;
+    text-transform:none;
+  }
+
+  /* ---------- HOBBIES ---------- */
+  .hobbies{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    padding:var(--spacing-45) var(--spacing-20);
+    background:var(--color-cloud-white);
+  }
+  .hobbies h2{
+    font-family:var(--font-display);
+    font-weight:400;
+    font-size:clamp(28px, 5vw, var(--text-heading-sm));
+    text-align:center;
+    margin-bottom:var(--spacing-45);
+  }
+  .hobby-row{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:var(--spacing-45);
+    max-width:1100px;
+  }
+  .hobby{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    width:200px;
+    text-align:center;
+  }
+  .hobby-badge{
+    width:140px;
+    height:140px;
+    border-radius:var(--radius-full);
+    background:var(--color-sun-disc);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-bottom:var(--spacing-20);
+    transition:transform 0.25s ease;
+  }
+  .hobby:hover .hobby-badge{transform:translateY(-6px);}
+  .hobby-badge svg{width:72px;height:72px;}
+  .hobby span{
+    font-family:var(--font-arial);
+    font-size:14px;
+    letter-spacing:0.02em;
+    text-transform:uppercase;
+  }
+
+  /* ---------- GALLERY ---------- */
+  .gallery{
+    min-height:100vh;
+    padding:var(--spacing-45) var(--spacing-20);
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+  }
+  .gallery h2{
+    font-family:var(--font-display);
+    font-weight:400;
+    font-size:clamp(28px, 5vw, var(--text-heading-sm));
+    margin-bottom:var(--spacing-10);
+  }
+  .gallery-lead{
+    font-size:var(--text-body);
+    max-width:520px;
+    margin-bottom:var(--spacing-45);
+    line-height:1.6;
+  }
+  .gallery-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+    gap:var(--spacing-20);
+  }
+  .gallery-card{
+    border:2px solid var(--color-whisker-ink);
+    padding:var(--spacing-20);
+    display:flex;
+    flex-direction:column;
+    gap:var(--spacing-20);
+  }
+  .gallery-card svg{width:100%; height:160px;}
+  .gallery-card figcaption{
+    font-size:var(--text-caption);
+    letter-spacing:0.03em;
+    text-transform:uppercase;
+  }
+
+  /* ---------- CONTACT ---------- */
+  .contact{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:flex-end;
+  }
+  .contact-stage{
+    position:relative;
+    width:100%;
+    height:min(70vh, 620px);
+    display:flex;
+    justify-content:center;
+  }
+  .contact-disc{
+    position:absolute;
+    bottom:-30%;
+    width:min(70vw, 460px);
+    height:min(70vw, 460px);
+    border-radius:var(--radius-full);
+    background:var(--color-yarn-coral);
+  }
+  .contact-arc{
+    position:absolute;
+    top:6%;
+    left:50%;
+    transform:translateX(-50%);
+    width:min(78vw, 500px);
+    height:min(78vw, 500px);
+    pointer-events:none;
+  }
+  .contact-arc text{
+    font-family:var(--font-display);
+    fill:var(--color-cloud-white);
+  }
+  .paw{
+    position:absolute;
+    width:56px;
+    opacity:0.55;
+  }
+  .paw.p1{bottom:8%; left:12%; transform:rotate(-12deg);}
+  .paw.p2{bottom:20%; left:22%; transform:rotate(-4deg) scale(0.8);}
+  .paw.p3{bottom:8%; right:12%; transform:rotate(12deg) scaleX(-1);}
+  .paw.p4{bottom:20%; right:22%; transform:rotate(4deg) scaleX(-1) scale(0.8);}
+  .contact-footer{
+    position:relative;
+    z-index:1;
+    text-align:center;
+    padding:var(--spacing-20) var(--spacing-20) var(--spacing-45);
+  }
+  .contact-line{
+    font-family:var(--font-display);
+    font-size:var(--text-subheading);
+    line-height:1.25;
+  }
+  .contact-mail{
+    display:inline-block;
+    margin-top:var(--spacing-10);
+    font-family:var(--font-arial);
+    font-size:var(--text-body);
+    border-bottom:2px solid var(--color-whisker-ink);
+  }
+  .copyright{
+    margin-top:var(--spacing-45);
+    font-size:var(--text-caption);
+    opacity:0.7;
+  }
+
+  @media (max-width:640px){
+    .about-intro{align-self:center; text-align:center; max-width:100%;}
+    .about-body{justify-content:center; text-align:center;}
+    .about-story{text-align:left;}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <nav aria-label="Основная навигация">
+    <ul>
+      <li><a href="#hero" class="active">Главная</a></li>
+      <li><a href="#about">О Бусе</a></li>
+      <li><a href="#hobbies">Привычки</a></li>
+      <li><a href="#gallery">Галерея</a></li>
+      <li><a href="#contact">Контакты</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section id="hero" class="hero">
+  <div class="hero-stage">
+
+    <svg class="prop prop-window" viewBox="0 0 60 60" fill="none">
+      <rect x="4" y="4" width="52" height="52" fill="var(--color-cloud-white)" stroke="var(--color-whisker-ink)" stroke-width="3"/>
+      <line x1="30" y1="4" x2="30" y2="56" stroke="var(--color-whisker-ink)" stroke-width="3"/>
+      <line x1="4" y1="30" x2="56" y2="30" stroke="var(--color-whisker-ink)" stroke-width="3"/>
+    </svg>
+    <svg class="prop prop-window two" viewBox="0 0 60 60" fill="none">
+      <rect x="4" y="4" width="52" height="52" fill="var(--color-cloud-white)" stroke="var(--color-whisker-ink)" stroke-width="3"/>
+      <line x1="30" y1="4" x2="30" y2="56" stroke="var(--color-whisker-ink)" stroke-width="3"/>
+      <line x1="4" y1="30" x2="56" y2="30" stroke="var(--color-whisker-ink)" stroke-width="3"/>
+    </svg>
+
+    <div class="sun-disc"></div>
+
+    <svg class="hero-eyebrow" viewBox="0 0 400 400">
+      <path id="eyebrowArc" d="M 55 220 A 145 145 0 0 1 345 220" fill="none"/>
+      <text text-anchor="middle">
+        <textPath href="#eyebrowArc" startOffset="50%">СТАРШИЙ СПЕЦИАЛИСТ ПО СНУ И ПТИЦАМ ЗА ОКНОМ</textPath>
+      </text>
+    </svg>
+
+    <svg class="hero-arc-text" viewBox="0 0 400 400">
+      <path id="titleArc" d="M 20 260 A 180 180 0 0 1 380 260" fill="none"/>
+      <text text-anchor="middle" font-size="92">
+        <textPath href="#titleArc" startOffset="50%">БУСЯ</textPath>
+      </text>
+    </svg>
+
+    <svg class="cat-curled" viewBox="0 0 400 260" fill="none">
+      <ellipse cx="200" cy="180" rx="150" ry="66" fill="var(--color-busya-grey)"/>
+      <g class="tail-wag">
+        <path d="M320 190 C 380 170, 388 90, 320 70 C 300 64, 292 82, 308 90 C 356 104, 350 158, 300 178 Z" fill="var(--color-busya-grey)"/>
+        <path d="M300 178 C 296 170, 296 160, 302 152" stroke="var(--color-busya-grey-dark)" stroke-width="4" fill="none" stroke-linecap="round"/>
+      </g>
+      <circle cx="118" cy="118" r="58" fill="var(--color-busya-grey)"/>
+      <path d="M76 92 L64 40 L112 78 Z" fill="var(--color-busya-grey)"/>
+      <path d="M160 92 L184 44 L128 78 Z" fill="var(--color-busya-grey)"/>
+      <path d="M84 84 L76 56 L100 80 Z" fill="var(--color-yarn-coral)" opacity="0.5"/>
+      <path d="M152 84 L166 58 L136 80 Z" fill="var(--color-yarn-coral)" opacity="0.5"/>
+      <path d="M92 120 q10 8 20 0" stroke="var(--color-whisker-ink)" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M124 120 q10 8 20 0" stroke="var(--color-whisker-ink)" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M112 134 q6 6 12 0" stroke="var(--color-whisker-ink)" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <g stroke="var(--color-whisker-ink)" stroke-width="2" stroke-linecap="round">
+        <line x1="70" y1="128" x2="30" y2="122"/>
+        <line x1="70" y1="136" x2="28" y2="136"/>
+        <line x1="70" y1="144" x2="30" y2="150"/>
+        <line x1="166" y1="128" x2="206" y2="122"/>
+        <line x1="166" y1="136" x2="208" y2="136"/>
+        <line x1="166" y1="144" x2="206" y2="150"/>
+      </g>
+      <path d="M40 170 q20 -14 40 -4" stroke="var(--color-busya-grey-dark)" stroke-width="6" fill="none" stroke-linecap="round"/>
+    </svg>
+
+    <svg class="prop prop-plant" viewBox="0 0 100 130" fill="none">
+      <rect x="30" y="94" width="40" height="34" fill="var(--color-whisker-ink)"/>
+      <path d="M50 96 C 40 60, 10 50, 8 20 C 30 34, 48 58, 50 96 Z" fill="var(--color-leaf)"/>
+      <path d="M50 96 C 60 54, 92 46, 96 16 C 72 30, 52 56, 50 96 Z" fill="var(--color-leaf)"/>
+      <path d="M50 96 C 48 50, 50 30, 42 6 C 58 26, 58 54, 50 96 Z" fill="var(--color-leaf)" opacity="0.85"/>
+    </svg>
+
+    <svg class="prop prop-yarn" viewBox="0 0 90 90" fill="none">
+      <circle cx="45" cy="45" r="38" fill="var(--color-yarn-coral)"/>
+      <path d="M10 45 C 30 20, 60 20, 80 45" stroke="var(--color-whisker-ink)" stroke-width="3" fill="none" opacity="0.35"/>
+      <path d="M10 45 C 30 70, 60 70, 80 45" stroke="var(--color-whisker-ink)" stroke-width="3" fill="none" opacity="0.35"/>
+      <path d="M45 8 C 20 28, 20 62, 45 82" stroke="var(--color-whisker-ink)" stroke-width="3" fill="none" opacity="0.35"/>
+      <path d="M12 30 C 40 46, 40 46, 76 34" stroke="var(--color-whisker-ink)" stroke-width="3" fill="none" opacity="0.25"/>
+    </svg>
+
+  </div>
+  <p class="hero-caption">человеку принадлежит квартира.<br>Бусе принадлежит человек.</p>
+</section>
+
+<section id="about" class="about">
+  <div class="about-intro">
+    <h2>Серый.<br>Пушистый.<br>Появился внезапно.</h2>
+  </div>
+  <div class="about-body">
+    <div class="about-story">
+      <p>Буся переехал в квартиру три года назад и с тех пор считает её своей. Формально документы оформлены на человека, но по факту решения о перестановке мебели, температуре в комнате и расписании обедов принимает Буся.</p>
+      <p>Любит подоконник, коробки любого размера и людей, которые уже легли спать. Не любит переноску, вету и когда дверь закрыта не полностью.</p>
+    </div>
+    <div class="fact-chips">
+      <div class="fact-chip">Окрас<b>Дымчато-серый</b></div>
+      <div class="fact-chip">Возраст<b>Не подлежит уточнению</b></div>
+      <div class="fact-chip">Вес<b>Секретная информация</b></div>
+      <div class="fact-chip">Суперсила<b>Телепортация к холодильнику</b></div>
+    </div>
+  </div>
+</section>
+
+<section id="hobbies" class="hobbies">
+  <h2>Чем занят день Буси</h2>
+  <div class="hobby-row">
+
+    <div class="hobby">
+      <div class="hobby-badge">
+        <svg viewBox="0 0 80 80" fill="none">
+          <path d="M60 42 C58 56 46 66 32 64 C44 60 50 50 46 38 C58 40 62 30 56 20 C68 24 64 36 60 42 Z" fill="var(--color-whisker-ink)"/>
+        </svg>
+      </div>
+      <span>Сон (16 часов)</span>
+    </div>
+
+    <div class="hobby">
+      <div class="hobby-badge">
+        <svg viewBox="0 0 80 80" fill="none">
+          <circle cx="40" cy="40" r="6" fill="var(--color-whisker-ink)"/>
+          <circle cx="40" cy="40" r="16" stroke="var(--color-whisker-ink)" stroke-width="2" fill="none" opacity="0.5"/>
+          <circle cx="40" cy="40" r="27" stroke="var(--color-whisker-ink)" stroke-width="2" fill="none" opacity="0.25"/>
+        </svg>
+      </div>
+      <span>Охота на точку</span>
+    </div>
+
+    <div class="hobby">
+      <div class="hobby-badge">
+        <svg viewBox="0 0 80 80" fill="none">
+          <ellipse cx="40" cy="50" rx="26" ry="12" fill="none" stroke="var(--color-whisker-ink)" stroke-width="3"/>
+          <ellipse cx="40" cy="46" rx="26" ry="12" fill="var(--color-cloud-white)" stroke="var(--color-whisker-ink)" stroke-width="3"/>
+        </svg>
+      </div>
+      <span>Требование еды</span>
+    </div>
+
+    <div class="hobby">
+      <div class="hobby-badge">
+        <svg viewBox="0 0 80 80" fill="none">
+          <rect x="18" y="26" width="44" height="34" fill="none" stroke="var(--color-whisker-ink)" stroke-width="3"/>
+          <path d="M18 26 L40 14 L62 26" fill="none" stroke="var(--color-whisker-ink)" stroke-width="3"/>
+        </svg>
+      </div>
+      <span>Инспекция коробок</span>
+    </div>
+
+  </div>
+</section>
+
+<section id="gallery" class="gallery">
+  <h2>Иллюстрированные моменты</h2>
+  <p class="gallery-lead">Фотоаппарат Буся не признаёт, поэтому важные сцены дня зафиксированы вручную.</p>
+  <div class="gallery-grid">
+
+    <figure class="gallery-card">
+      <svg viewBox="0 0 200 140" fill="none">
+        <rect x="0" y="90" width="200" height="50" fill="var(--color-sun-disc)" opacity="0.3"/>
+        <rect x="70" y="20" width="60" height="70" fill="none" stroke="var(--color-whisker-ink)" stroke-width="3"/>
+        <line x1="100" y1="20" x2="100" y2="90" stroke="var(--color-whisker-ink)" stroke-width="2"/>
+        <ellipse cx="100" cy="98" rx="34" ry="14" fill="var(--color-busya-grey)"/>
+        <circle cx="76" cy="86" r="12" fill="var(--color-busya-grey)"/>
+      </svg>
+      <figcaption>Подоконник — 15:00</figcaption>
+    </figure>
+
+    <figure class="gallery-card">
+      <svg viewBox="0 0 200 140" fill="none">
+        <rect x="50" y="60" width="100" height="60" fill="none" stroke="var(--color-whisker-ink)" stroke-width="3"/>
+        <path d="M50 60 L70 42 L130 42 L150 60" fill="none" stroke="var(--color-whisker-ink)" stroke-width="3"/>
+        <ellipse cx="100" cy="96" rx="30" ry="16" fill="var(--color-busya-grey)"/>
+        <path d="M78 84 L72 66 L92 82 Z" fill="var(--color-busya-grey)"/>
+      </svg>
+      <figcaption>Коробка от бумаги — круглосуточно</figcaption>
+    </figure>
+
+    <figure class="gallery-card">
+      <svg viewBox="0 0 200 140" fill="none">
+        <ellipse cx="90" cy="100" rx="38" ry="16" fill="var(--color-busya-grey)"/>
+        <path d="M60 92 L52 64 L78 86 Z" fill="var(--color-busya-grey)"/>
+        <path d="M110 90 q26 -30 50 -8" stroke="var(--color-yarn-coral)" stroke-width="3" fill="none" stroke-dasharray="2 8" stroke-linecap="round"/>
+        <circle cx="164" cy="70" r="4" fill="var(--color-yarn-coral)"/>
+      </svg>
+      <figcaption>Охота на невидимого врага</figcaption>
+    </figure>
+
+    <figure class="gallery-card">
+      <svg viewBox="0 0 200 140" fill="none">
+        <rect x="20" y="110" width="160" height="6" fill="var(--color-whisker-ink)" opacity="0.2"/>
+        <ellipse cx="70" cy="98" rx="30" ry="14" fill="var(--color-busya-grey)"/>
+        <path d="M48 90 L40 66 L64 84 Z" fill="var(--color-busya-grey)"/>
+        <path d="M100 108 L118 96 L136 108 L154 96" stroke="var(--color-whisker-ink)" stroke-width="3" fill="none" stroke-linecap="round"/>
+      </svg>
+      <figcaption>Приветствие гостей (не всех)</figcaption>
+    </figure>
+
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <div class="contact-stage">
+    <svg class="paw p1" viewBox="0 0 60 60" fill="var(--color-whisker-ink)"><circle cx="30" cy="38" r="16"/><circle cx="14" cy="18" r="7"/><circle cx="30" cy="10" r="7"/><circle cx="46" cy="18" r="7"/></svg>
+    <svg class="paw p2" viewBox="0 0 60 60" fill="var(--color-whisker-ink)"><circle cx="30" cy="38" r="16"/><circle cx="14" cy="18" r="7"/><circle cx="30" cy="10" r="7"/><circle cx="46" cy="18" r="7"/></svg>
+    <svg class="paw p3" viewBox="0 0 60 60" fill="var(--color-whisker-ink)"><circle cx="30" cy="38" r="16"/><circle cx="14" cy="18" r="7"/><circle cx="30" cy="10" r="7"/><circle cx="46" cy="18" r="7"/></svg>
+    <svg class="paw p4" viewBox="0 0 60 60" fill="var(--color-whisker-ink)"><circle cx="30" cy="38" r="16"/><circle cx="14" cy="18" r="7"/><circle cx="30" cy="10" r="7"/><circle cx="46" cy="18" r="7"/></svg>
+
+    <div class="contact-disc"></div>
+    <svg class="contact-arc" viewBox="0 0 400 400">
+      <path id="contactArc" d="M 60 240 A 140 140 0 0 1 340 240" fill="none"/>
+      <text text-anchor="middle" font-size="40">
+        <textPath href="#contactArc" startOffset="50%">ПОЧЕШИ ЗА УХОМ</textPath>
+      </text>
+    </svg>
+  </div>
+  <div class="contact-footer">
+    <p class="contact-line">Заявки на почёсывание<br>и лишнюю порцию корма —</p>
+    <span class="contact-mail">мяу@busya.cat</span>
+    <p class="copyright">© Буся и его человек. Все лапки защищены.</p>
+  </div>
+</section>
+
+<script>
+  (function(){
+    var links = document.querySelectorAll('.nav a');
+    var sections = Array.prototype.map.call(links, function(a){
+      return document.getElementById(a.getAttribute('href').slice(1));
+    });
+    if (!('IntersectionObserver' in window)) return;
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (!entry.isIntersecting) return;
+        var idx = sections.indexOf(entry.target);
+        if (idx === -1) return;
+        links.forEach(function(a){ a.classList.remove('active'); });
+        links[idx].classList.add('active');
+      });
+    }, { rootMargin: '-45% 0px -45% 0px' });
+    sections.forEach(function(s){ if (s) io.observe(s); });
+  })();
+</script>
+
+</body>
 </html>
