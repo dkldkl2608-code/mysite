@@ -312,21 +312,80 @@
   }
   .gallery-grid{
     display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns:repeat(12, 1fr);
     gap:var(--spacing-20);
+    align-items:start;
   }
   .gallery-card{
     border:2px solid var(--color-whisker-ink);
-    padding:var(--spacing-20);
+    padding:10px;
     display:flex;
     flex-direction:column;
-    gap:var(--spacing-20);
+    gap:10px;
+    background:var(--color-cloud-white);
+    cursor:zoom-in;
+    transition:transform 0.2s ease, box-shadow 0.2s ease;
   }
-  .gallery-card svg{width:100%; height:160px;}
+  .gallery-card:nth-child(1){grid-column:1 / 7; transform:rotate(-1deg);}
+  .gallery-card:nth-child(2){grid-column:7 / 10; margin-top:45px; transform:rotate(1.5deg);}
+  .gallery-card:nth-child(3){grid-column:10 / 13; transform:rotate(-1.5deg);}
+  .gallery-card:nth-child(4){grid-column:2 / 7; transform:rotate(1deg);}
+  .gallery-card:nth-child(5){grid-column:7 / 12; margin-top:25px; transform:rotate(-0.8deg);}
+  .gallery-card:hover{
+    transform:rotate(0) translateY(-6px);
+    box-shadow:8px 8px 0 var(--color-yarn-coral);
+  }
+  .gallery-card:focus-visible{
+    outline:4px solid var(--color-yarn-coral);
+    outline-offset:4px;
+  }
+  .gallery-card img{
+    width:100%;
+    aspect-ratio:3 / 4;
+    object-fit:cover;
+  }
   .gallery-card figcaption{
     font-size:var(--text-caption);
     letter-spacing:0.03em;
     text-transform:uppercase;
+  }
+
+  /* ---------- LIGHTBOX ---------- */
+  .lightbox{
+    width:min(900px, calc(100% - 30px));
+    max-height:calc(100vh - 30px);
+    padding:0;
+    border:0;
+    background:transparent;
+  }
+  .lightbox::backdrop{
+    background:rgba(46,42,38,0.92);
+    backdrop-filter:blur(6px);
+  }
+  .lightbox img{
+    width:auto;
+    max-width:100%;
+    max-height:calc(100vh - 30px);
+    margin:auto;
+    object-fit:contain;
+  }
+  .lightbox-close{
+    position:fixed;
+    top:18px;
+    right:18px;
+    z-index:1;
+    width:46px;
+    height:46px;
+    border:2px solid var(--color-cloud-white);
+    border-radius:var(--radius-full);
+    color:var(--color-cloud-white);
+    background:var(--color-whisker-ink);
+    font:28px/1 var(--font-arial);
+    cursor:pointer;
+  }
+  .lightbox-close:focus-visible{
+    outline:4px solid var(--color-sun-disc);
+    outline-offset:3px;
   }
 
   /* ---------- CONTACT ---------- */
@@ -402,6 +461,9 @@
     .about-intro{align-self:center; text-align:center; max-width:100%;}
     .about-body{justify-content:center; text-align:center;}
     .about-story{text-align:left;}
+    .gallery-grid{grid-template-columns:1fr 1fr; gap:14px;}
+    .gallery-card:nth-child(n){grid-column:auto; margin-top:0; transform:none;}
+    .gallery-card:first-child{grid-column:1 / -1;}
   }
 </style>
 </head>
@@ -559,49 +621,33 @@
 </section>
 
 <section id="gallery" class="gallery">
-  <h2>Иллюстрированные моменты</h2>
-  <p class="gallery-lead">Фотоаппарат Буся не признаёт, поэтому важные сцены дня зафиксированы вручную.</p>
+  <h2>Буся в объективе</h2>
+  <p class="gallery-lead">Пять честных кадров: от глубокого сна до внезапного кувырка. Нажмите на фотографию, чтобы рассмотреть её поближе.</p>
   <div class="gallery-grid">
 
-    <figure class="gallery-card">
-      <svg viewBox="0 0 200 140" fill="none">
-        <rect x="0" y="90" width="200" height="50" fill="var(--color-sun-disc)" opacity="0.3"/>
-        <rect x="70" y="20" width="60" height="70" fill="none" stroke="var(--color-whisker-ink)" stroke-width="3"/>
-        <line x1="100" y1="20" x2="100" y2="90" stroke="var(--color-whisker-ink)" stroke-width="2"/>
-        <ellipse cx="100" cy="98" rx="34" ry="14" fill="var(--color-busya-grey)"/>
-        <circle cx="76" cy="86" r="12" fill="var(--color-busya-grey)"/>
-      </svg>
-      <figcaption>Подоконник — 15:00</figcaption>
+    <figure class="gallery-card" tabindex="0" data-full="images/cat-01.jpg">
+      <img src="images/cat-01.jpg" alt="Буся спит, положив голову на диван" width="960" height="1280">
+      <figcaption>Тихий час</figcaption>
     </figure>
 
-    <figure class="gallery-card">
-      <svg viewBox="0 0 200 140" fill="none">
-        <rect x="50" y="60" width="100" height="60" fill="none" stroke="var(--color-whisker-ink)" stroke-width="3"/>
-        <path d="M50 60 L70 42 L130 42 L150 60" fill="none" stroke="var(--color-whisker-ink)" stroke-width="3"/>
-        <ellipse cx="100" cy="96" rx="30" ry="16" fill="var(--color-busya-grey)"/>
-        <path d="M78 84 L72 66 L92 82 Z" fill="var(--color-busya-grey)"/>
-      </svg>
-      <figcaption>Коробка от бумаги — круглосуточно</figcaption>
+    <figure class="gallery-card" tabindex="0" data-full="images/cat-02.jpg">
+      <img src="images/cat-02.jpg" alt="Буся лежит у яркой подушки и смотрит в камеру" width="960" height="1280" loading="lazy">
+      <figcaption>Серьёзный взгляд</figcaption>
     </figure>
 
-    <figure class="gallery-card">
-      <svg viewBox="0 0 200 140" fill="none">
-        <ellipse cx="90" cy="100" rx="38" ry="16" fill="var(--color-busya-grey)"/>
-        <path d="M60 92 L52 64 L78 86 Z" fill="var(--color-busya-grey)"/>
-        <path d="M110 90 q26 -30 50 -8" stroke="var(--color-yarn-coral)" stroke-width="3" fill="none" stroke-dasharray="2 8" stroke-linecap="round"/>
-        <circle cx="164" cy="70" r="4" fill="var(--color-yarn-coral)"/>
-      </svg>
-      <figcaption>Охота на невидимого врага</figcaption>
+    <figure class="gallery-card" tabindex="0" data-full="images/cat-03.jpg">
+      <img src="images/cat-03.jpg" alt="Буся отдыхает рядом с узорной подушкой" width="960" height="1280" loading="lazy">
+      <figcaption>У окна</figcaption>
     </figure>
 
-    <figure class="gallery-card">
-      <svg viewBox="0 0 200 140" fill="none">
-        <rect x="20" y="110" width="160" height="6" fill="var(--color-whisker-ink)" opacity="0.2"/>
-        <ellipse cx="70" cy="98" rx="30" ry="14" fill="var(--color-busya-grey)"/>
-        <path d="M48 90 L40 66 L64 84 Z" fill="var(--color-busya-grey)"/>
-        <path d="M100 108 L118 96 L136 108 L154 96" stroke="var(--color-whisker-ink)" stroke-width="3" fill="none" stroke-linecap="round"/>
-      </svg>
-      <figcaption>Приветствие гостей (не всех)</figcaption>
+    <figure class="gallery-card" tabindex="0" data-full="images/cat-04.jpg">
+      <img src="images/cat-04.jpg" alt="Буся играет, лёжа на полу" width="960" height="1280" loading="lazy">
+      <figcaption>Пойман врасплох</figcaption>
+    </figure>
+
+    <figure class="gallery-card" tabindex="0" data-full="images/cat-05.jpg">
+      <img src="images/cat-05.jpg" alt="Буся кувыркается на полу" width="960" height="1280" loading="lazy">
+      <figcaption>Кувырок</figcaption>
     </figure>
 
   </div>
@@ -629,6 +675,11 @@
   </div>
 </section>
 
+<dialog class="lightbox" aria-label="Просмотр фотографии">
+  <button class="lightbox-close" type="button" aria-label="Закрыть">×</button>
+  <img src="" alt="">
+</dialog>
+
 <script>
   (function(){
     var links = document.querySelectorAll('.nav a');
@@ -646,6 +697,34 @@
       });
     }, { rootMargin: '-45% 0px -45% 0px' });
     sections.forEach(function(s){ if (s) io.observe(s); });
+  })();
+
+  (function(){
+    var dialog = document.querySelector('.lightbox');
+    var dialogImage = dialog.querySelector('img');
+    var cards = document.querySelectorAll('.gallery-card');
+
+    function openPhoto(card){
+      var source = card.querySelector('img');
+      dialogImage.src = card.dataset.full;
+      dialogImage.alt = source.alt;
+      dialog.showModal();
+    }
+
+    cards.forEach(function(card){
+      card.addEventListener('click', function(){ openPhoto(card); });
+      card.addEventListener('keydown', function(event){
+        if(event.key === 'Enter' || event.key === ' '){
+          event.preventDefault();
+          openPhoto(card);
+        }
+      });
+    });
+
+    dialog.querySelector('.lightbox-close').addEventListener('click', function(){ dialog.close(); });
+    dialog.addEventListener('click', function(event){
+      if(event.target === dialog) dialog.close();
+    });
   })();
 </script>
 
